@@ -49,38 +49,44 @@ public class MyOnClickListener implements View.OnClickListener {
                     try {
                         for (int i = 0; i < ipAdresses.size(); i++) {
                             if (!ipAdresses.get(i).getText().toString().equals("")) {
-                                final int result = ping(ipAdresses.get(i).getText().toString());
+                                final int result = ping(ipAdresses.get(i).getText().toString(), 1);
                                 Thread.sleep(150);
                                 final int finalI = i;
                                 activity.runOnUiThread(new Runnable() {
 
                                     @Override
                                     public void run() {
-                                        Calendar now = Calendar.getInstance();
-                                        if (now.get(Calendar.MINUTE) < 10)
-                                            console.append(now.get(Calendar.HOUR_OF_DAY) + ":0" + (now.get(Calendar.MINUTE)) + ":");
-                                        else
-                                            console.append(now.get(Calendar.HOUR_OF_DAY) + ":" + (now.get(Calendar.MINUTE)) + ":");
-                                        if (now.get(Calendar.SECOND) < 10)
-                                            console.append("0" + now.get(Calendar.SECOND) + " ");
-                                        else
-                                            console.append(now.get(Calendar.SECOND) + " ");
-                                        switch (result) {
-                                            case 0:
-                                                console.append(ipAdresses.get(finalI).getText().toString() + " OK\n");
-                                                break;
-                                            case 1:
-                                                console.append(ipAdresses.get(finalI).getText().toString() + " NEDOSTUPNA\n");
-                                                ok[0] = false;
-                                                break;
-                                            case 2:
-                                                console.append(ipAdresses.get(finalI).getText().toString() + " CHYBA\n");
-                                                ok[0] = false;
-                                                break;
-                                            default:
-                                                console.append(ipAdresses.get(finalI).getText().toString() + " ????\n");
-                                                ok[0] = false;
-                                                break;
+                                        int j = 1;
+                                        int count = 3;
+                                        while (j <= count) {
+                                            Calendar now = Calendar.getInstance();
+                                            if (now.get(Calendar.MINUTE) < 10)
+                                                console.append(now.get(Calendar.HOUR_OF_DAY) + ":0" + (now.get(Calendar.MINUTE)) + ":");
+                                            else
+                                                console.append(now.get(Calendar.HOUR_OF_DAY) + ":" + (now.get(Calendar.MINUTE)) + ":");
+                                            if (now.get(Calendar.SECOND) < 10)
+                                                console.append("0" + now.get(Calendar.SECOND) + " ");
+                                            else
+                                                console.append(now.get(Calendar.SECOND) + " ");
+                                            switch (result) {
+                                                case 0:
+                                                    console.append(ipAdresses.get(finalI).getText().toString() + " OK\n");
+                                                    count = 1;
+                                                    break;
+                                                case 1:
+                                                    console.append(ipAdresses.get(finalI).getText().toString() + " NEDOSTUPNA\n");
+                                                    ok[0] = false;
+                                                    break;
+                                                case 2:
+                                                    console.append(ipAdresses.get(finalI).getText().toString() + " CHYBA\n");
+                                                    ok[0] = false;
+                                                    break;
+                                                default:
+                                                    console.append(ipAdresses.get(finalI).getText().toString() + " ????\n");
+                                                    ok[0] = false;
+                                                    break;
+                                            }
+                                            j++;
                                         }
                                     }
                                 });
@@ -100,9 +106,9 @@ public class MyOnClickListener implements View.OnClickListener {
 
         }
 
-    private int ping(String ipAdress){
+    private int ping(String ipAdress, int count){
         BufferedReader bufferedReader = null;
-        String cmd = "/system/bin/ping -c 1 " + ipAdress;
+        String cmd = "/system/bin/ping -c " + count + " " + ipAdress;
         Process proc = null;
         try {
             proc = Runtime.getRuntime().exec(cmd);
