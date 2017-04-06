@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ping</string>
+    <string name="ipAdress">IP adress</string>
+    <string name="submit_button">Spusti ping</string>
+    <string name="stop">stop</string>
+    <string name="email">send email</string>
+    <string name="seconds">sekundy</string>
+    <string name="clear">zmaž</string>
+</resources>

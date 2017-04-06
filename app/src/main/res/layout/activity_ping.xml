@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.peto.ping.Ping">
+
+    <EditText
+        android:id="@+id/ipAdress1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ipAdress"
+        android:text="192.168.0.1"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/ipAdress2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ipAdress"
+        android:layout_below="@id/ipAdress1"
+        android:text="www.google.com"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/ipAdress3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ipAdress"
+        android:layout_below="@id/ipAdress2"
+        android:text="www.sme.sk"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/okIntervalLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ok interval:"
+        android:layout_marginTop="15px"
+        android:textSize="20dp"
+        android:layout_below="@id/ipAdress3" />
+
+    <EditText
+        android:id="@+id/okInterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/seconds"
+        android:text="300"
+        android:layout_toRightOf="@id/okIntervalLabel"
+        android:layout_below="@id/ipAdress3"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/badIntervalLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bad interval:"
+        android:layout_marginTop="15px"
+        android:textSize="20dp"
+        android:layout_below="@id/okInterval" />
+
+    <EditText
+        android:id="@+id/badInterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/seconds"
+        android:text="60"
+        android:layout_toRightOf="@id/badIntervalLabel"
+        android:layout_below="@id/okInterval"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/badInterval"
+        android:text="@string/submit_button" />
+
+    <Button
+    android:id="@+id/stop_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/badInterval"
+    android:layout_toRightOf="@id/submit_button"
+    android:text="@string/stop" />
+
+    <Button
+        android:id="@+id/clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/badInterval"
+        android:layout_toRightOf="@id/stop_button"
+        android:text="@string/clear" />
+
+    <TextView
+        android:id="@+id/console"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/submit_button"/>
+
+
+</RelativeLayout>
