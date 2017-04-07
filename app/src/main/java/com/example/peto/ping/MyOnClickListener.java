@@ -1,8 +1,6 @@
 package com.example.peto.ping;
 
 import android.app.Activity;
-import android.content.Context;
-import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +24,7 @@ public class MyOnClickListener implements View.OnClickListener {
     private Activity activity;
     private EditText okInterval;
     private EditText badInterval;
+    private int lines = 0;
     static Boolean run;
 
     public MyOnClickListener(ArrayList<EditText> ipAdresses, TextView console, Activity activity, EditText okInterval, EditText badInterval){
@@ -142,6 +141,11 @@ public class MyOnClickListener implements View.OnClickListener {
     }
 
     public void consoleAppend(int result, int i){
+        lines++;
+        if (lines > 10){
+            console.setText("");
+            lines = 0;
+        }
         Calendar now = Calendar.getInstance();
         if (now.get(Calendar.MINUTE) < 10)
             console.append(now.get(Calendar.HOUR_OF_DAY) + ":0" + (now.get(Calendar.MINUTE)) + ":");
