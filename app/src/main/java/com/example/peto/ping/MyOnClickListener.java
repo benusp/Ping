@@ -59,32 +59,12 @@ public class MyOnClickListener implements View.OnClickListener {
                                         int j = 1;
                                         int count = 3;
                                         while (j <= count) {
-                                            Calendar now = Calendar.getInstance();
-                                            if (now.get(Calendar.MINUTE) < 10)
-                                                console.append(now.get(Calendar.HOUR_OF_DAY) + ":0" + (now.get(Calendar.MINUTE)) + ":");
-                                            else
-                                                console.append(now.get(Calendar.HOUR_OF_DAY) + ":" + (now.get(Calendar.MINUTE)) + ":");
-                                            if (now.get(Calendar.SECOND) < 10)
-                                                console.append("0" + now.get(Calendar.SECOND) + " ");
-                                            else
-                                                console.append(now.get(Calendar.SECOND) + " ");
-                                            switch (result) {
-                                                case 0:
-                                                    console.append(ipAdresses.get(finalI).getText().toString() + " OK\n");
-                                                    count = 1;
-                                                    break;
-                                                case 1:
-                                                    console.append(ipAdresses.get(finalI).getText().toString() + " NEDOSTUPNA\n");
-                                                    ok[0] = false;
-                                                    break;
-                                                case 2:
-                                                    console.append(ipAdresses.get(finalI).getText().toString() + " CHYBA\n");
-                                                    ok[0] = false;
-                                                    break;
-                                                default:
-                                                    console.append(ipAdresses.get(finalI).getText().toString() + " ????\n");
-                                                    ok[0] = false;
-                                                    break;
+                                            consoleAppend(result, finalI);
+                                            if (result > 0){
+                                                ok[0] = false;
+                                            }
+                                            else if (j == 1){
+                                                count = 1;
                                             }
                                             j++;
                                         }
@@ -159,5 +139,31 @@ public class MyOnClickListener implements View.OnClickListener {
 
     public static void setRun(Boolean run) {
         MyOnClickListener.run = run;
+    }
+
+    public void consoleAppend(int result, int i){
+        Calendar now = Calendar.getInstance();
+        if (now.get(Calendar.MINUTE) < 10)
+            console.append(now.get(Calendar.HOUR_OF_DAY) + ":0" + (now.get(Calendar.MINUTE)) + ":");
+        else
+            console.append(now.get(Calendar.HOUR_OF_DAY) + ":" + (now.get(Calendar.MINUTE)) + ":");
+        if (now.get(Calendar.SECOND) < 10)
+            console.append("0" + now.get(Calendar.SECOND) + " ");
+        else
+            console.append(now.get(Calendar.SECOND) + " ");
+        switch (result) {
+            case 0:
+                console.append(ipAdresses.get(i).getText().toString() + " OK\n");
+                break;
+            case 1:
+                console.append(ipAdresses.get(i).getText().toString() + " NEDOSTUPNA\n");
+                break;
+            case 2:
+                console.append(ipAdresses.get(i).getText().toString() + " CHYBA\n");
+                break;
+            default:
+                console.append(ipAdresses.get(i).getText().toString() + " ????\n");
+                break;
+        }
     }
 }
