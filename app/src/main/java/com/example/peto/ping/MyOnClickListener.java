@@ -128,7 +128,7 @@ public class MyOnClickListener implements View.OnClickListener {
 
         try {
             Calendar now = Calendar.getInstance();
-            File file = new File("/sdcard/ping/" + now.get(Calendar.DAY_OF_MONTH) + "-" +(now.get(Calendar.MONTH)+1) + "-" + now.get(Calendar.YEAR));
+            File file = new File("/sdcard/ping/" + now.get(Calendar.DAY_OF_MONTH) + "-" +(now.get(Calendar.MONTH)+1) + "-" + now.get(Calendar.YEAR)+".txt");
             file.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(file, true);
             if (now.get(Calendar.MINUTE) < 10)
