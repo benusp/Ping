@@ -25,6 +25,7 @@ public class MyOnClickListener implements View.OnClickListener {
     private EditText okInterval;
     private EditText badInterval;
     private int lines = 0;
+    private Thread thread = null;
     static Boolean run;
 
     public MyOnClickListener(ArrayList<EditText> ipAdresses, TextView console, Activity activity, EditText okInterval, EditText badInterval){
@@ -37,9 +38,14 @@ public class MyOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
-
-        new Thread(new Runnable() {
+        if (thread != null){
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 run = true;
@@ -80,10 +86,9 @@ public class MyOnClickListener implements View.OnClickListener {
                     }
                 }
             }
-        }).start();
-
-
-        }
+        });
+        thread.start();
+    }
 
     private int ping(String ipAdress, int count){
         BufferedReader bufferedReader = null;
