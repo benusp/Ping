@@ -120,7 +120,7 @@ public class MyOnClickListener implements View.OnClickListener {
             else
                 fileOutputStream.write((now.get(Calendar.SECOND) + " ").getBytes());
             if (proc.exitValue() == 0){
-                fileOutputStream.write((ipAdress + "OK\n").getBytes());
+                fileOutputStream.write((ipAdress + " OK\n").getBytes());
             }
             else {
                 fileOutputStream.write(("\n").getBytes());
