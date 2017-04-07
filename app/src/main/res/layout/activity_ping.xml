@@ -13,6 +13,7 @@
         android:id="@+id/ipAdress1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="14dp"
         android:hint="@string/ipAdress"
         android:text="192.168.0.1"
         android:inputType="text" />
@@ -22,6 +23,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/ipAdress"
+        android:textSize="14dp"
         android:layout_below="@id/ipAdress1"
         android:text="www.google.com"
         android:inputType="text" />
@@ -30,6 +32,7 @@
         android:id="@+id/ipAdress3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="14dp"
         android:hint="@string/ipAdress"
         android:layout_below="@id/ipAdress2"
         android:text="www.sme.sk"
@@ -41,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="ok interval:"
         android:layout_marginTop="15px"
-        android:textSize="20dp"
+        android:textSize="14dp"
         android:layout_below="@id/ipAdress3" />
 
     <EditText
@@ -49,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/seconds"
+        android:textSize="14dp"
         android:text="300"
         android:layout_toRightOf="@id/okIntervalLabel"
         android:layout_below="@id/ipAdress3"
@@ -60,7 +64,7 @@
         android:layout_height="wrap_content"
         android:text="bad interval:"
         android:layout_marginTop="15px"
-        android:textSize="20dp"
+        android:textSize="14dp"
         android:layout_below="@id/okInterval" />
 
     <EditText
@@ -68,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/seconds"
+        android:textSize="14dp"
         android:text="60"
         android:layout_toRightOf="@id/badIntervalLabel"
         android:layout_below="@id/okInterval"
