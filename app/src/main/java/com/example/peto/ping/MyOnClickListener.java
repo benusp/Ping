@@ -58,7 +58,6 @@ public class MyOnClickListener implements View.OnClickListener {
                                     final int[] count = {3};
                                     while (j[0] <= count[0]) {
                                         final int result = ping(ipAdresses.get(i).getText().toString(), 1);
-                                        Thread.sleep(150);
                                         final int finalI = i;
                                         activity.runOnUiThread(new Runnable() {
                                             @Override
@@ -71,6 +70,7 @@ public class MyOnClickListener implements View.OnClickListener {
                                                 }
                                             }
                                         });
+                                        Thread.sleep(150);
                                         j[0]++;
                                     }
                                 }
@@ -137,7 +137,7 @@ public class MyOnClickListener implements View.OnClickListener {
                 if (mWifi.isConnected())
                     fileOutputStream.write(("CONNECTED\n").getBytes());
                 else
-                    fileOutputStream.write(("\n").getBytes());
+                    fileOutputStream.write(("NOT CONNECTED\n").getBytes());
                 while ((line = bufferedReader.readLine()) != null) {
                     //console.append(line + "\n");
                     fileOutputStream.write((line + "\n").getBytes());
@@ -156,7 +156,7 @@ public class MyOnClickListener implements View.OnClickListener {
     }
 
     public void consoleAppend(int result, int i){
-        lines++;
+        lines += 2;
         if (lines > 10){
             console.setText("");
             lines = 0;
@@ -184,5 +184,10 @@ public class MyOnClickListener implements View.OnClickListener {
                 console.append(ipAdresses.get(i).getText().toString() + " ????\n");
                 break;
         }
+        if (mWifi.isConnected())
+            console.append("CONNECTED\n");
+        else
+            console.append("NOT CONNECTED\n");
+
     }
 }
