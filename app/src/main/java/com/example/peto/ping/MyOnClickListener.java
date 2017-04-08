@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -122,7 +123,7 @@ public class MyOnClickListener implements View.OnClickListener {
 
         try {
             Calendar now = Calendar.getInstance();
-            File file = new File("/sdcard/ping/" + now.get(Calendar.DAY_OF_MONTH) + "-" +(now.get(Calendar.MONTH)+1) + "-" + now.get(Calendar.YEAR)+".txt");
+            File file = new File(Environment.getExternalStorageDirectory() + "/ping/" + now.get(Calendar.DAY_OF_MONTH) + "-" +(now.get(Calendar.MONTH)+1) + "-" + now.get(Calendar.YEAR)+".txt");
             file.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(file, true);
             if (now.get(Calendar.MINUTE) < 10)
