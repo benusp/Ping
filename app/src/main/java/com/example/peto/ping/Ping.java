@@ -20,6 +20,12 @@ public class Ping extends AppCompatActivity {
 
     private static final String TAG = "ping";
 
+    public Context getContext() {
+        return context;
+    }
+
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +44,7 @@ public class Ping extends AppCompatActivity {
         EditText okInterval = (EditText) findViewById(R.id.okInterval);
         EditText badInterval = (EditText) findViewById(R.id.badInterval);
 
-        Context context = getApplicationContext();
+        context = getApplicationContext();
 
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiManager.WifiLock lock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, TAG);
@@ -46,7 +52,7 @@ public class Ping extends AppCompatActivity {
         lock.acquire();
 
         final TextView console = (TextView) findViewById(R.id.console);
-        btn.setOnClickListener(new MyOnClickListener(ipAdresses, console, this, okInterval, badInterval));
+        btn.setOnClickListener(new MyOnClickListener(ipAdresses, console, this, okInterval, badInterval, context));
         stopBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

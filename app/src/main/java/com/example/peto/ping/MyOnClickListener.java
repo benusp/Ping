@@ -1,6 +1,9 @@
 package com.example.peto.ping;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,14 +29,17 @@ public class MyOnClickListener implements View.OnClickListener {
     private EditText badInterval;
     private int lines = 0;
     private Thread thread = null;
+    private NetworkInfo mWifi;
     static Boolean run;
 
-    public MyOnClickListener(ArrayList<EditText> ipAdresses, TextView console, Activity activity, EditText okInterval, EditText badInterval){
+    public MyOnClickListener(ArrayList<EditText> ipAdresses, TextView console, Activity activity, EditText okInterval, EditText badInterval, Context context){
         this.ipAdresses = ipAdresses;
         this.console = console;
         this.activity = activity;
         this.okInterval = okInterval;
         this.badInterval = badInterval;
+        ConnectivityManager connManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
     }
 
     @Override
@@ -128,7 +134,10 @@ public class MyOnClickListener implements View.OnClickListener {
                 fileOutputStream.write((ipAdress + " OK\n").getBytes());
             }
             else {
-                fileOutputStream.write(("\n").getBytes());
+                if (mWifi.isConnected())
+                    fileOutputStream.write(("CONNECTED\n").getBytes());
+                else
+                    fileOutputStream.write(("\n").getBytes());
                 while ((line = bufferedReader.readLine()) != null) {
                     //console.append(line + "\n");
                     fileOutputStream.write((line + "\n").getBytes());
