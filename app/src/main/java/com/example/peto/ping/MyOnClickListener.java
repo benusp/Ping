@@ -48,26 +48,25 @@ public class MyOnClickListener implements View.OnClickListener {
                         try {
                             for (int i = 0; i < ipAdresses.size(); i++) {
                                 if (!ipAdresses.get(i).getText().toString().equals("")) {
-                                    final int result = ping(ipAdresses.get(i).getText().toString(), 1);
-                                    Thread.sleep(150);
-                                    final int finalI = i;
-                                    activity.runOnUiThread(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-                                            int j = 1;
-                                            int count = 3;
-                                            while (j <= count) {
+                                    final int[] j = {1};
+                                    final int[] count = {3};
+                                    while (j[0] <= count[0]) {
+                                        final int result = ping(ipAdresses.get(i).getText().toString(), 1);
+                                        Thread.sleep(150);
+                                        final int finalI = i;
+                                        activity.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
                                                 consoleAppend(result, finalI);
                                                 if (result > 0) {
                                                     ok[0] = false;
-                                                } else if (j == 1) {
-                                                    count = 1;
+                                                } else if (j[0] == 1) {
+                                                    count[0] = 1;
                                                 }
-                                                j++;
                                             }
-                                        }
-                                    });
+                                        });
+                                        j[0]++;
+                                    }
                                 }
                             }
                             if (ok[0])
