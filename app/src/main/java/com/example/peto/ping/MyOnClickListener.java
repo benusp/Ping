@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class MyOnClickListener implements View.OnClickListener {
     private Thread thread = null;
     private NetworkInfo mWifi;
     static Boolean run;
+    private WifiManager wifiManager;
 
     public MyOnClickListener(ArrayList<EditText> ipAdresses, TextView console, Activity activity, EditText okInterval, EditText badInterval, Context context){
         this.ipAdresses = ipAdresses;
@@ -40,6 +42,7 @@ public class MyOnClickListener implements View.OnClickListener {
         this.badInterval = badInterval;
         ConnectivityManager connManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
     }
 
     @Override
@@ -156,7 +159,7 @@ public class MyOnClickListener implements View.OnClickListener {
     }
 
     public void consoleAppend(int result, int i){
-        lines += 2;
+        lines += 3;
         if (lines > 10){
             console.setText("");
             lines = 0;
@@ -188,6 +191,9 @@ public class MyOnClickListener implements View.OnClickListener {
             console.append("CONNECTED\n");
         else
             console.append("NOT CONNECTED\n");
-
+        if (wifiManager.pingSupplicant())
+            console.append("PING SUPPLICANT OK\n");
+        else
+            console.append("PING SUPPLICANT NOT SUCCESSFUL\n");
     }
 }
