@@ -38,56 +38,58 @@ public class MyOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (thread != null){
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                run = true;
-                while (run) {
-                    final Boolean[] ok = {true};
-                    try {
-                        for (int i = 0; i < ipAdresses.size(); i++) {
-                            if (!ipAdresses.get(i).getText().toString().equals("")) {
-                                final int result = ping(ipAdresses.get(i).getText().toString(), 1);
-                                Thread.sleep(150);
-                                final int finalI = i;
-                                activity.runOnUiThread(new Runnable() {
+        if (thread == null) {
+            thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    run = true;
+                    while (run) {
+                        final Boolean[] ok = {true};
+                        try {
+                            for (int i = 0; i < ipAdresses.size(); i++) {
+                                if (!ipAdresses.get(i).getText().toString().equals("")) {
+                                    final int result = ping(ipAdresses.get(i).getText().toString(), 1);
+                                    Thread.sleep(150);
+                                    final int finalI = i;
+                                    activity.runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        int j = 1;
-                                        int count = 3;
-                                        while (j <= count) {
-                                            consoleAppend(result, finalI);
-                                            if (result > 0){
-                                                ok[0] = false;
+                                        @Override
+                                        public void run() {
+                                            int j = 1;
+                                            int count = 3;
+                                            while (j <= count) {
+                                                consoleAppend(result, finalI);
+                                                if (result > 0) {
+                                                    ok[0] = false;
+                                                } else if (j == 1) {
+                                                    count = 1;
+                                                }
+                                                j++;
                                             }
-                                            else if (j == 1){
-                                                count = 1;
-                                            }
-                                            j++;
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             }
-                        }
-                        if (ok[0])
-                            Thread.sleep(Integer.parseInt(okInterval.getText().toString()) * 1000);
-                        else
-                            Thread.sleep(Integer.parseInt(badInterval.getText().toString()) * 1000);
-                    } catch(InterruptedException e){
+                            if (ok[0])
+                                Thread.sleep(Integer.parseInt(okInterval.getText().toString()) * 1000);
+                            else
+                                Thread.sleep(Integer.parseInt(badInterval.getText().toString()) * 1000);
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
+                        }
+                    }
+                    try {
+                        thread.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
-            }
-        });
-        thread.start();
+            });
+            thread.start();
+        }
+        else{
+            thread.notifyAll();
+        }
     }
 
     private int ping(String ipAdress, int count){
