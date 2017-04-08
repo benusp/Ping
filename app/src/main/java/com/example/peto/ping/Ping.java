@@ -1,5 +1,6 @@
 package com.example.peto.ping;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class Ping extends AppCompatActivity {
 
-    //private WifiManager mainWifiObj;
+    private static final String TAG = "ping";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,13 @@ public class Ping extends AppCompatActivity {
 
         EditText okInterval = (EditText) findViewById(R.id.okInterval);
         EditText badInterval = (EditText) findViewById(R.id.badInterval);
+
+        Context context = getApplicationContext();
+
+        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager.WifiLock lock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, TAG);
+        lock.setReferenceCounted(false);
+        lock.acquire();
 
         final TextView console = (TextView) findViewById(R.id.console);
         btn.setOnClickListener(new MyOnClickListener(ipAdresses, console, this, okInterval, badInterval));
